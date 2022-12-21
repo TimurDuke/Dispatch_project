@@ -15,7 +15,7 @@ describe('Testing \'brokers\' route', () => {
         .post('/users/sessions')
         .send({email, password});
 
-      expect(res.statusCode).toBe(200);
+      await expect(res.statusCode).toBe(200);
       user = res.body;
     });
   };
@@ -55,12 +55,12 @@ describe('Testing \'brokers\' route', () => {
           companiesContract: carriers[0]._id.toString()
         });
 
-      expect(res.statusCode).toBe(200);
-      expect(res.body.name).toBe('Test broker name');
-      expect(res.body.phoneNumber).toEqual(['+99655555000']);
-      expect(res.body.mc).toBe(number.toString());
-      expect(res.body.description).toBe('Test broker description');
-      expect(res.body.companiesContract).toEqual([carriers[0]._id.toString()]);
+      await expect(res.statusCode).toBe(200);
+      await expect(res.body.name).toBe('Test broker name');
+      await expect(res.body.phoneNumber).toEqual(['+99655555000']);
+      await expect(res.body.mc).toBe(number.toString());
+      await expect(res.body.description).toBe('Test broker description');
+      await expect(res.body.companiesContract).toEqual([carriers[0]._id.toString()]);
       broker = res.body;
     });
   };
@@ -73,7 +73,7 @@ describe('Testing \'brokers\' route', () => {
       const res = await request(app)
         .get('/brokers')
         .set({Authorization: user.token});
-      expect(res.statusCode).toBe(200);
+      await expect(res.statusCode).toBe(200);
     });
   });
 
@@ -98,12 +98,12 @@ describe('Testing \'brokers\' route', () => {
           companiesContract: carriers[1]._id.toString()
         });
 
-      expect(res.statusCode).toBe(200);
-      expect(res.body.name).toBe('Changed test broker name');
-      expect(res.body.phoneNumber).toEqual(['+99655555001']);
-      expect(res.body.mc).toBe('Changed Test broker mc');
-      expect(res.body.description).toBe('Changed Test broker description');
-      expect(res.body.companiesContract).toEqual([carriers[1]._id.toString()]);
+      await expect(res.statusCode).toBe(200);
+      await expect(res.body.name).toBe('Changed test broker name');
+      await expect(res.body.phoneNumber).toEqual(['+99655555001']);
+      await expect(res.body.mc).toBe('Changed Test broker mc');
+      await expect(res.body.description).toBe('Changed Test broker description');
+      await expect(res.body.companiesContract).toEqual([carriers[1]._id.toString()]);
     });
   });
 
@@ -117,7 +117,7 @@ describe('Testing \'brokers\' route', () => {
         .delete('/brokers/' + brokers[0]._id.toString())
         .set({Authorization: user.token});
 
-      expect(res.statusCode).toBe(200);
+      await expect(res.statusCode).toBe(200);
     });
   });
 

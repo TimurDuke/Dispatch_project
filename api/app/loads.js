@@ -9,9 +9,9 @@ const config = require('../config');
 const Load = require("../models/Load");
 const Driver = require("../models/Driver");
 
-const TelegramApi = require('node-telegram-bot-api');
-const token = "936426396:AAEwbo64h7Nf3lEJ56bW1ZoA3plMlyPl9VQ";
-const bot = new TelegramApi(token, {polling: true});
+// const TelegramApi = require('node-telegram-bot-api');
+// const token = "936426396:AAEwbo64h7Nf3lEJ56bW1ZoA3plMlyPl9VQ";
+// const bot = new TelegramApi(token, {polling: true});
 
 const router = express.Router();
 
@@ -146,12 +146,12 @@ router.post('/', auth, cpUpload, async (req, res) => {
         if (req.files?.RC) {
             loadData.RC = 'public/uploads/' + req.files['RC'][0].filename;
         }
-        if (driverId) {
-            const driver = await Driver.findById({_id: driverId})
-            if (driver.telegramId) {
-                return await bot.sendMessage(driver.telegramId, `У вас есть новый груз ${loadCode}У вас есть новый груз ${loadCode}\nНапишите команду /load чтобы получить полную информацию по грузу`);
-            }
-        }
+        // if (driverId) {
+        //     const driver = await Driver.findById({_id: driverId})
+        //     if (driver.telegramId) {
+        //         return await bot.sendMessage(driver.telegramId, `У вас есть новый груз ${loadCode}У вас есть новый груз ${loadCode}\nНапишите команду /load чтобы получить полную информацию по грузу`);
+        //     }
+        // }
 
         const load = new Load(loadData);
         await load.save();
@@ -239,12 +239,12 @@ router.put('/:id', auth, cpUpload, async (req, res) => {
             }
             loadData.RC = 'public/uploads/' + req.files['RC'][0].filename;
         }
-        if (driverId) {
-            const driver = await Driver.findById({_id: driverId});
-            if (driver.telegramId) {
-                return await bot.sendMessage(driver.telegramId, `У вас есть новый груз ${loadCode}\nНапишите команду /load чтобы получить полную информацию по грузу`);
-            }
-        }
+        // if (driverId) {
+        //     const driver = await Driver.findById({_id: driverId});
+        //     if (driver.telegramId) {
+        //         return await bot.sendMessage(driver.telegramId, `У вас есть новый груз ${loadCode}\nНапишите команду /load чтобы получить полную информацию по грузу`);
+        //     }
+        // }
 
         const updateLoad = await Load.findByIdAndUpdate(req.params.id, loadData, {new: true, runValidators: true});
 
@@ -296,12 +296,12 @@ router.put('/cancel/:id', auth, async (req, res) => {
 
         const canceledLoad = await Load.findByIdAndUpdate(req.params.id, {status: 'cancel'});
 
-        if (load.driverId) {
-            const driver = await Driver.findById({_id: driverId})
-            if (driver.telegramId) {
-                return await bot.sendMessage(driver.telegramId, `Ваш груз был отменен ${load.loadCode}`);
-            }
-        }
+        // if (load.driverId) {
+        //     const driver = await Driver.findById({_id: driverId})
+        //     if (driver.telegramId) {
+        //         return await bot.sendMessage(driver.telegramId, `Ваш груз был отменен ${load.loadCode}`);
+        //     }
+        // }
 
         res.send(canceledLoad);
     } catch (e) {

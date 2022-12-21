@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require("../index");
 
-const TRIPS_STATUSES = ['upcoming', 'transit', 'finished'];
+const TRIPS_STATUSES = ['upcoming', 'transit', 'finished', 'cancel'];
 
 describe('Testing \'loads\' route', () => {
   let randomLoadCode = new Date().valueOf().toString().slice(2) * 1;
