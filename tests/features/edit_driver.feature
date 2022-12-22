@@ -25,8 +25,9 @@
       | DOB         | 07.09.1988             |
       | info        | Some driver info       |
       | reference   | Communicative          |
-    Затем нажимаю на выбор компании для редактирования "SAFEWAY CARGO"
-    И нажимаю на компанию "TURAN EXPRESS"
+
+    Затем нажимаю на поле, чтобы выбрать "SAFEWAY CARGO"
+    И нажимаю на элемент списка с текстом "TURAN EXPRESS"
 
     Затем нажимаю на кнопку редактирования водителя "Save"
     То я вижу текст о успешном редактировании водителя "You have successfully updated a driver!"
