@@ -196,15 +196,22 @@ Then('я вижу текст о успешном редактировании п
 Then('нажимаю на поле с надписью {string}', text => {
   I.click(`//div//label[contains(text(), "${text}")]`);
 });
-
+Then('нажимаю на поле, чтобы выбрать {string}', brokerName => {
+  I.click(`//div/div//*[@id="demo-simple-select"]`);
+  I.wait(1);
+});
 Then('нажимаю на элемент списка с текстом {string}', driverName => {
   I.click(`//ul//li[contains(text(), "${driverName}")]`);
+  I.wait(1);
+});
+Then('нажимаю на селект с надписью {string}', driverName => {
+  I.click(`//div//label[contains(text(), "${driverName}")]`);
   I.wait(1);
 });
 
 Then('прикрепляю в поле {string} файл {string}', (fieldName, file) => {
   I.attachFile(`input[name=${fieldName}]`, file);
-  I.wait(1);
+  I.wait(5);
 });
 
 /* Trips upcoming/transit/history edit test */
