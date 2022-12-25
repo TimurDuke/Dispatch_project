@@ -3,7 +3,7 @@
         "@codeceptjs/configure": "^0.8.0",
         "@codeceptjs/examples": "^1.2.1",
         "@codeceptjs/ui": "^0.3.2",
-        "codeceptjs": "^2.2.1",
+        "codeceptjs": "^3.3.7",
         "playwright": "^1.28.1",
         "puppeteer": "^19.2.2"
     },
