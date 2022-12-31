@@ -5,7 +5,7 @@ exports.config = {
       url: 'http://localhost:3010',
       show: !process.env.CI,
       headless: Boolean(process.env.CI),
-      args: ['--use-gl=egl'],
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
       windowSize: '1200x900'
     }
   },
