@@ -7,6 +7,7 @@ import carriersSaga from "./sagas/carriersSagas";
 import tripsSagas from "./sagas/tripsSagas";
 import driversSagas from "./sagas/driversSagas";
 import brokersSagas from "./sagas/brokersSagas";
+import learningsSagas from "./sagas/learningsSagas";
 
 export default function* rootSagas() {
     yield all([
@@ -15,6 +16,7 @@ export default function* rootSagas() {
         ...userSagas,
         ...driversSagas,
         ...brokersSagas,
+        ...learningsSagas,
         ...historySagas(history),
         ...notifierSagas,
     ])

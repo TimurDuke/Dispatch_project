@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
-import {createDispatcherRequest, createUserCarrierRequest} from "../../../store/actions/usersActions";
+import {
+  clearCreateUserRequest, closeCreateModal,
+  createDispatcherRequest,
+  createUserCarrierRequest, openCreateModal
+} from "../../../store/actions/usersActions";
 import DispatcherModal from "./DispatcherModal";
 import AddButton from "../../UI/Button/AddButton/AddButton";
 import {fetchCarriersRequest} from "../../../store/actions/carriersActions";
@@ -11,8 +15,7 @@ const NewDispatcher = ({dispatcherRole, title}) => {
   const error = useSelector(state => state.users.createError);
   const loading = useSelector(state => state.users.createLoading);
   const carriers = useSelector(state => state.carriers.carriers);
-
-  const [openCreate, setOpenCreate] = useState(false);
+  const modal = useSelector(state => state.users.createModal);
 
   const [dispatcherData, setDispatcherData] = useState({
     email: "",
@@ -35,60 +38,20 @@ const NewDispatcher = ({dispatcherRole, title}) => {
 
   useEffect(() => {
     if (error === null) {
-      setOpenCreate(false);
       dispatch(fetchCarriersRequest());
 
-      switch (dispatcherRole) {
-        case "carrier":
-          setUserCarrierData({
-            email: "",
-            phoneNumber: "",
-            password: "",
-            role: dispatcherRole,
-            companyId: "",
-            displayName: "",
-            avatar: ""
-          });
-          break;
-        default:
-          return setDispatcherData({
-            email: "",
-            phoneNumber: "",
-            password: "",
-            role: dispatcherRole,
-            displayName: "",
-            avatar:  ""
-          });
-      }
     }
   }, [error, dispatcherRole, dispatch])
 
   const modalCloseHandler = () => {
-    setOpenCreate(false);
+    dispatch(closeCreateModal());
+    dispatch(clearCreateUserRequest());
+  };
 
+  const modalOpenHandler = () => {
+    dispatch(openCreateModal());
+    dispatch(clearCreateUserRequest());
     switch (dispatcherRole) {
-      case "user":
-        setDispatcherData({
-          email: "",
-          phoneNumber: "",
-          password: "",
-          role: dispatcherRole,
-          displayName: "",
-          avatar:  ""
-        });
-        break;
-
-      case "admin":
-        setDispatcherData({
-          email: "",
-          phoneNumber: "",
-          password: "",
-          role: dispatcherRole,
-          displayName: "",
-          avatar:  ""
-        });
-        break;
-
       case "carrier":
         setUserCarrierData({
           email: "",
@@ -101,7 +64,14 @@ const NewDispatcher = ({dispatcherRole, title}) => {
         });
         break;
       default:
-        return null;
+        return setDispatcherData({
+          email: "",
+          phoneNumber: "",
+          password: "",
+          role: dispatcherRole,
+          displayName: "",
+          avatar:  ""
+        });
     }
   };
 
@@ -196,17 +166,15 @@ const NewDispatcher = ({dispatcherRole, title}) => {
       default:
         return null;
     }
-
-    modalCloseHandler();
   };
 
   return (
     <div>
-      <AddButton click={() => setOpenCreate(!openCreate)}/>
+      <AddButton click={modalOpenHandler}/>
       <DispatcherModal
         title={title}
-        modal={openCreate}
-        dispatcher={dispatcherRole === "user" || "admin" ? dispatcherData : userCarrierData}
+        modal={modal}
+        dispatcher={dispatcherRole === "carrier" ? userCarrierData : dispatcherData}
         modalHandler={modalCloseHandler}
         submitFormHandler={submitFormHandler}
         inputHandler={inputChangeHandler}

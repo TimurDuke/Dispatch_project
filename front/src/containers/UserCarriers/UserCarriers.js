@@ -92,7 +92,6 @@ const UserCarriers = () => {
 
     const userCarrier = copyUserCarrier.find(carrier => carrier._id === e.target.id);
     await dispatch(changeStatusRequest(userCarrier));
-    setUserCarriers(copyUserCarrier);
   };
 
 

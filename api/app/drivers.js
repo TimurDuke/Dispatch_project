@@ -206,7 +206,7 @@ router.post('/carrier', auth, permit('carrier'), upload.single('license'), async
 router.put('/:id', auth, upload.single('license'), async (req, res) => {
   try {
     const {email, name, phoneNumber, companyId, status, description, pickUp,
-      delivery, ETA, readyTime, notes, currentStatus} = req.body;
+      delivery, ETA, readyTime, notes, currentStatus, telegramId} = req.body;
 
     const duplicatedEmail = await User.findOne({email});
 
@@ -241,6 +241,10 @@ router.put('/:id', auth, upload.single('license'), async (req, res) => {
 
     if (currentStatus){
         driver.currentStatus = currentStatus;
+    }
+
+    if(telegramId) {
+        driver.telegramId = telegramId;
     }
 
     if (status !== 'in transit' && status !== 'in tr/upc') {

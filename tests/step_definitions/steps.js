@@ -252,7 +252,7 @@ Then('я вижу текст об ошибке редактирования {str
   I.wait(1);
 });
 
-/* Filter drivers/dispatchers/carriers/statusUpdate */
+/* Filter drivers/dispatchers/carriers/statusUpdate/LearningCategory */
 
 Then('я ввожу данные в поле поиска', () => {
   I.click(`//input[@placeholder="Search"]`);
@@ -282,5 +282,37 @@ Then('нажимаю на кнопку выбора компании броке�
 });
 Then('я не вижу текст {string}', text => {
   I.dontSee(text, '//ul//li');
+  I.wait(1);
+});
+
+/* Learning Category adding tests */
+Given('я открываю страницу базы знаний {string}', page => {
+  I.amOnPage('/' + page);
+});
+
+Then('я нажимаю на кнопку открытия модального окна для формы добавления новой категории базы знаний {string}', buttonText => {
+  I.click(`[alt="${buttonText}"]`);
+});
+
+When('я введу данные в форму добавления новой категории:', table => {
+  table.rows.forEach(row => {
+    const name = row.cells[0].value;
+    const value = row.cells[1].value;
+    I.fillField(name, value);
+  });
+});
+
+Then('нажимаю на кнопку добавления новой категории {string}', buttonText => {
+  I.click(`//form//button[contains(text(), "${buttonText}")]`);
+  I.wait(1);
+});
+
+Then('я вижу текст о успешном добавлении новой категории {string}', text => {
+  I.see(text);
+  I.wait(1);
+});
+
+Then('я вижу текст о ошибке добавления новой категории {string}', text => {
+  I.see(text);
   I.wait(1);
 });

@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {Box, Grid, InputBase, styled} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {Grid, InputBase, styled} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import InnerContainer from "../../components/InnerContainer/InnerContainer";
-import InnerTable from "../../components/Table/InnerTable";
-import TableHeaderRow from "../../components/Table/TableHeader/TableHeaderRow";
-import DispatcherTableBody from "../../components/Table/TableBody/DispatcherTableBody";
-import {changeStatusRequest, fetchUsersRequest} from "../../store/actions/usersActions";
-import NewDispatcher from "../../components/Modals/DispatcherModal/NewDispatcher";
-import SearchIcon from "@mui/icons-material/Search";
-import useTableSearch from "../../components/UI/Filter/useTableSearch/useTableSearch";
+import useTableSearch from '../../components/UI/Filter/useTableSearch/useTableSearch';
+import {fetchLearningCategoriesRequest} from "../../store/actions/learningsActions";
+import AddLearningCategory from "../../components/Modals/AddLearningCategory";
 
 const SearchStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,70 +48,56 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const headerTitles = ["avatar", "email", "name", "phone", "status"];
+const CategoryStyle = styled('div')(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: '#fff',
+  '&:hover': {
+    boxShadow: '4px 6px 8px -2px rgba(160, 174, 255, 0.5)',
+    cursor: 'pointer',
+  },
+  margin: '7px 0',
+  maxWidth: '550px',
+  padding: theme.spacing(2),
+}));
 
-const Dispatchers = () => {
-  const dispatch = useDispatch();
-  const users = useSelector(state => state.users.users);
-  const [dispatchers, setDispatchers] = useState([]);
+const Learnings = () => {
   const [searchVal, setSearchVal] = useState(null);
 
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.users.user);
+  const categories = useSelector(state => state.learnings.categories);
+
   useEffect(() => {
-    dispatch(fetchUsersRequest());
+    dispatch(fetchLearningCategoriesRequest());
   }, [dispatch]);
 
-  const { filteredData } = useTableSearch({
+  const { filteredData} = useTableSearch({
     searchVal,
-    data: dispatchers
+    data: categories
   });
-
-  useEffect(() => {
-    if (users.length !== null) {
-
-      setDispatchers(() => (
-        users.filter(user => user.role === "user")
-      ));
-    }
-  }, [users, filteredData]);
-
-  const activeSwitcherHandler = async (e) => {
-
-    const copyDispatchers = dispatchers.map(dispatcher => {
-      if (dispatcher._id === e.target.id) {
-        return {
-          ...dispatcher,
-          isWorking: e.target.checked
-        }
-      } else {
-        return dispatcher;
-      }
-    });
-
-    const dispatcher = copyDispatchers.find(dispatcher => dispatcher._id === e.target.id);
-    await dispatch(changeStatusRequest(dispatcher));
-  };
 
   return (
     <>
       <InnerContainer>
+
         <Grid item sx={{paddingLeft: "15px"}}>
           <Typography variant="h5" fontWeight="bold" textTransform="uppercase">
-            Dispatchers
+            Learnings
           </Typography>
         </Grid>
-
         <Grid
           item
           container
           spacing={2}
           justifyContent="space-between"
         >
+
           <Grid padding="15px">
-            <NewDispatcher
-              dispatcherRole="user"
-              title="New Dispatcher"
-            />
+            {user?.role === 'admin' &&
+            <AddLearningCategory/>
+            }
           </Grid>
+
           <Grid>
             <SearchStyle>
               <SearchIconWrapper>
@@ -129,24 +112,24 @@ const Dispatchers = () => {
           </Grid>
         </Grid>
 
+        <Box padding='0 30px'>
+          <Typography variant="h6" fontWeight="bold" textTransform="uppercase" marginBottom={'10px'}>
+            Categories
+          </Typography>
+          <Box height='65vh' sx={{overflowY: 'scroll'}}>
+            {filteredData.map(cat => (
+              <CategoryStyle key={cat._id}>
+                <Typography>{cat.title}</Typography>
+              </CategoryStyle>
+            ))}
+          </Box>
 
-
-        <InnerTable
-          header={
-          <TableHeaderRow
-            headerCells={headerTitles}
-            data={false}
-            sx={{fontSize: "16px", fontWeight: "bold", textTransform: "uppercase"}}
-          />
-          }
-          body={
-          <DispatcherTableBody dispatchers={filteredData} switchHandler={activeSwitcherHandler}/>
-          }
-        />
+        </Box>
 
       </InnerContainer>
+
     </>
   );
 };
 
-export default Dispatchers;
+export default Learnings;

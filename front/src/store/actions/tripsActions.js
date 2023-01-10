@@ -31,5 +31,8 @@ export const {
   confirmTripsRequest,
   confirmTripsSuccess,
   confirmTripsFailure,
-  clearCreateTripErrorRequest
+  clearCreateTripErrorRequest,
+  fetchWeekTripsRequest,
+  fetchWeekTripsSuccess,
+  fetchWeekTripsFailure
 } = tripsSlice.actions;

@@ -465,7 +465,7 @@ const TripsModal = ({modalTitle, isAdd, tripID, isEdit}) => {
                     onChange={inputChangeHandler}
                     error={getFieldError('driverId')}
                     driver={true}
-                    array={drivers}
+                    array={drivers.filter((driver) => {return driver.status === 'ready' || driver.status === 'in transit'})}
                     required={false}
                     variant="object"
                   />

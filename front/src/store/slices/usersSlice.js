@@ -14,7 +14,8 @@ export const initialState = {
     createLoading: false,
     createError: null,
     changeStatusLoading: false,
-    changeStatusError: null
+    changeStatusError: null,
+    createModal: false
 };
 
 const usersSlice = createSlice({
@@ -83,6 +84,7 @@ const usersSlice = createSlice({
         createDispatcherSuccess(state) {
             state.createLoading = false;
             state.createError = null;
+            state.createModal = false;
         },
         createDispatcherFailure(state, action) {
             state.createLoading = false;
@@ -108,10 +110,22 @@ const usersSlice = createSlice({
         createUserCarrierSuccess(state) {
             state.createLoading = false;
             state.createError = null;
+            state.createModal = false;
         },
         createUserCarrierFailure(state, action) {
             state.createLoading = false;
             state.createError = action.payload;
+        },
+
+        clearCreateUserRequest(state) {
+            state.createError = null;
+        },
+
+        openCreateModal(state) {
+            state.createModal = true;
+        },
+        closeCreateModal(state) {
+            state.createModal = false;
         }
     }
 });

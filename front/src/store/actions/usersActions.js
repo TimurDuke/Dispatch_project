@@ -23,5 +23,8 @@ export const {
     changeStatusFailure,
     createUserCarrierRequest,
     createUserCarrierSuccess,
-    createUserCarrierFailure
+    createUserCarrierFailure,
+    clearCreateUserRequest,
+    openCreateModal,
+    closeCreateModal
 } = usersSlice.actions

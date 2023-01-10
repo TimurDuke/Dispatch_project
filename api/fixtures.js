@@ -61,7 +61,6 @@ const run = async () => {
     avatar: 'fixtures/admin.png',
     phoneNumber: '+267●5350811',
     isWorking: 'active',
-    telegramId: '',
   }, {
     email: 'user@gmail.com',
     password: 'user',
@@ -71,7 +70,6 @@ const run = async () => {
     avatar: 'fixtures/user.png',
     phoneNumber: '+267●5350801',
     isWorking: 'active',
-    telegramId: '',
   }, {
     email: 'user2@gmail.com',
     password: 'user2',
@@ -80,7 +78,6 @@ const run = async () => {
     displayName: 'User2',
     phoneNumber: '+267●5350802',
     isWorking: 'disabled',
-    telegramId: '',
   }, {
     email: 'bahaway@gmail.com',
     password: 'bahaway',
@@ -90,7 +87,6 @@ const run = async () => {
     companyId: bahawayCarrier._id,
     phoneNumber: '+267●5350812',
     isWorking: 'active',
-    telegramId: '',
   }, {
     email: 'safeway@gmail.com',
     password: 'safeway',
@@ -100,7 +96,6 @@ const run = async () => {
     companyId: safewayCargoCarrier._id,
     phoneNumber: '+267●5350803',
     isWorking: 'active',
-    telegramId: '',
   });
 
   const [umotDriver, kubaDriver, timurDriver, keldibekDriver, bakdoolotDriver, askhatDriver,
@@ -111,21 +106,24 @@ const run = async () => {
     companyId: bahawayCarrier._id,
     status: 'in transit',
     currentStatus: 'driving',
-    telegramId: '',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, LA, Avalon c., str. 1, h. 45',
       DOB: '15.12.1980',
       info: 'Lorem ipsum dolor sit amet',
       reference: 'Punctual, decent'
-    }
+    },
+    pickUp: 'Shepherd, KY',
+    delivery: 'Pittsburg, PA',
+    ETA: '10:00',
+    readyTime: '11/09/2022',
+    notes: 'bla bla',
   }, {
     email: 'kuba@gmail.com',
     name: 'Kuba',
     phoneNumber: '+9293774446',
     companyId: bahawayCarrier._id,
-    status: 'upcoming',
-    telegramId: '',
+    status: 'off',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, LA, Downey c., str. 1, h. 4',
@@ -138,9 +136,8 @@ const run = async () => {
     name: 'Timur',
     phoneNumber: '+3237454492',
     companyId: safewayCargoCarrier._id,
-    status: 'off',
-    currentStatus: 'n/a',
-    telegramId: '',
+    status: 'upcoming',
+    currentStatus: 'driving',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, IL, Chicago c., str. 1, h. 4',
@@ -154,7 +151,6 @@ const run = async () => {
     phoneNumber: '+5138081130',
     companyId: safewayCargoCarrier._id,
     status: 'ready',
-    telegramId: '',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, IL, Chicago c., str. 1, h. 48',
@@ -169,22 +165,24 @@ const run = async () => {
     companyId: safewayCargoCarrier._id,
     status: 'in tr/upc',
     currentStatus: 'rest',
-    telegramId: '',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, IL, Chicago c., str. 10, h. 48',
       DOB: '25.07.1993',
       info: 'lorem',
       reference: 'Professional with all required skills'
-    }
+    },
+    pickUp: 'New-York, NY',
+    delivery: 'Chicago, IL',
+    ETA: '10:00',
+    readyTime: '11/09/2022',
+    notes: 'bla bla',
   }, {
     email: 'askhat@gmail.com',
     name: 'Askhat',
     phoneNumber: '+3126840690',
     companyId: turanExpressCarrier._id,
     status: 'off',
-    currentStatus: 'n/a',
-    telegramId: '',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, NY, New-York c., 5 Avenue, h. 48',
@@ -192,11 +190,6 @@ const run = async () => {
       info: 'Lorem ipsum dolor sit amet',
       reference: 'Needs to gain more experience'
     },
-    pickUp: 'Ohio',
-    delivery: 'Pennsylvania',
-    ETA: '04:00',
-    readyTime: '15.11.2022',
-    notes: 'bla bla',
   }, {
     email: 'mirbek@gmail.com',
     name: 'Mirbek',
@@ -204,20 +197,23 @@ const run = async () => {
     companyId: turanExpressCarrier._id,
     status: 'in tr/upc',
     currentStatus: 'driving',
-    telegramId: '',
     description: {
       address: 'US, NY, New-York c., str. 56, h. 48',
       DOB: '3.01.1996',
       info: 'lorem',
       reference: 'Positive guy'
-    }
+    },
+    pickUp: 'Tulsa, OK',
+    delivery: 'Chicago, IL',
+    ETA: '10:00',
+    readyTime: '11/09/2022',
+    notes: 'bla bla',
   }, {
     email: 'bekmurat@gmail.com',
     name: 'Bekmurat',
     phoneNumber: '+7739466304',
     companyId: tumarExpressCarrier._id,
     status: 'ready',
-    telegramId: '',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, MS, Gulfport c., str. 4, h. 75, ap. 7',
@@ -232,14 +228,18 @@ const run = async () => {
     companyId: tumarExpressCarrier._id,
     status: 'in transit',
     currentStatus: 'rest',
-    telegramId: '',
     license: 'fixtures/license.pdf',
     description: {
       address: 'US, TX, Houston c., str. 45, h. 12, ap. 12',
       DOB: '5.05.1995',
       info: 'lorem',
       reference: 'Responsible guy'
-    }
+    },
+    pickUp: 'Houston, TX',
+    delivery: 'New Orleans, LA',
+    ETA: '10:00',
+    readyTime: '11/10/2022',
+    notes: 'bla bla',
   });
   
   const [azamatBroker, aibekBroker, nurbekBroker, adiletBroker] = await Broker.create(
@@ -272,7 +272,7 @@ const run = async () => {
   await Load.create({
     loadCode: 'T-114K1J2M7',
     driverId: umotDriver._id,
-    dispatchId: user._id,
+    dispatchId: user2._id,
     price: 1335.6,
     miles: 445.2,
     rpm: 3,
@@ -282,12 +282,12 @@ const run = async () => {
     timeToDel: '11:16',
     pu: 'Shepherd, KY',
     del: 'Pittsburg, PA',
-    status: 'transit',
+    status: 'upcoming',
     BOL: 'fixtures/BOL1.pdf',
     RC: 'fixtures/RC1.pdf',
     brokerId: azamatBroker._id,
     comment: [{
-      authorId: user._id,
+      authorId: user2._id,
       text: 'Lorem ipsum'
     }]
   }, {
@@ -303,7 +303,7 @@ const run = async () => {
     timeToDel: '15:16',
     pu: 'Pittsburg, PA',
     del: 'Boston, MA',
-    status: 'cancel',
+    status: 'upcoming',
     brokerId: aibekBroker._id,
     comment: [{
       authorId: user._id,
@@ -325,7 +325,7 @@ const run = async () => {
     timeToDel: '19:16',
     pu: 'New-York, NY',
     del: 'Chicago, IL',
-    status: 'finished',
+    status: 'upcoming',
     BOL: 'fixtures/BOL2.pdf',
     RC: 'fixtures/RC2.pdf',
     brokerId: nurbekBroker._id,
@@ -339,6 +339,90 @@ const run = async () => {
       authorId: user._id,
       text: 'Labore et dolore magna aliqua. Rhoncus dolor purus non'
     }]
+  }, {
+    loadCode: 'T-1285KK458',
+    driverId: bakdoolotDriver._id,
+    dispatchId: user._id,
+    price: 1750,
+    miles: 700,
+    rpm: 2.5,
+    datePU: '11/5/2022',
+    dateDEL: '11/8/2022',
+    timeToPU: '3:16',
+    timeToDel: '19:16',
+    pu: 'New-York, NY',
+    del: 'Chicago, IL',
+    status: 'transit',
+    BOL: 'fixtures/BOL2.pdf',
+    RC: 'fixtures/RC2.pdf',
+    brokerId: nurbekBroker._id,
+    comment: [{
+      authorId: user._id,
+      text: 'Dolor sit amet, consectetur adipiscing elit'
+    }, {
+      authorId: user2._id,
+      text: 'Ipsum'
+    }, {
+      authorId: user._id,
+      text: 'Labore et dolore magna aliqua. Rhoncus dolor purus non'
+    }]
+  }, {
+    loadCode: 'T-128HSTB88',
+    driverId: bakdoolotDriver._id,
+    dispatchId: user._id,
+    price: 1750,
+    miles: 700,
+    rpm: 2.5,
+    datePU: '11/9/2022',
+    dateDEL: '11/11/2022',
+    timeToPU: '3:16',
+    timeToDel: '19:16',
+    pu: 'Chicago, IL',
+    del: 'Boston, MS',
+    status: 'upcoming',
+    brokerId: nurbekBroker._id,
+  },{
+    loadCode: 'T-1285781258',
+    driverId: mirbekDriver._id,
+    dispatchId: user._id,
+    price: 1750,
+    miles: 700,
+    rpm: 2.5,
+    datePU: '11/8/2022',
+    dateDEL: '11/9/2022',
+    timeToPU: '3:16',
+    timeToDel: '19:16',
+    pu: 'Tulsa, OK',
+    del: 'Chicago, IL',
+    status: 'transit',
+    BOL: 'fixtures/BOL2.pdf',
+    RC: 'fixtures/RC2.pdf',
+    brokerId: nurbekBroker._id,
+    comment: [{
+      authorId: user._id,
+      text: 'Dolor sit amet, consectetur adipiscing elit'
+    }, {
+      authorId: user2._id,
+      text: 'Ipsum'
+    }, {
+      authorId: user._id,
+      text: 'Labore et dolore magna aliqua. Rhoncus dolor purus non'
+    }]
+  }, {
+    loadCode: 'T-128HSCB84',
+    driverId: mirbekDriver._id,
+    dispatchId: user._id,
+    price: 1750,
+    miles: 700,
+    rpm: 2.5,
+    datePU: '11/9/2022',
+    dateDEL: '11/11/2022',
+    timeToPU: '3:16',
+    timeToDel: '19:16',
+    pu: 'Chicago, IL',
+    del: 'Boston, MS',
+    status: 'upcoming',
+    brokerId: nurbekBroker._id,
   }, {
     loadCode: 'T-12FEF4E5F',
     dispatchId: user2._id,

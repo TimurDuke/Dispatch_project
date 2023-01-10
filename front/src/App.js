@@ -12,6 +12,7 @@ import Dispatchers from "./containers/Dispatchers/Dispatchers";
 import CarrierTrips from "./containers/CarrierTrips/CarrierTrips";
 import Administrators from "./containers/Administrators/Administrators";
 import UserCarriers from "./containers/UserCarriers/UserCarriers";
+import Learnings from "./containers/Learnings/Learnings";
 
 const ProtectedRoute = ({isAllowed, redirectTo, ...props}) => {
     return isAllowed ?
@@ -73,6 +74,12 @@ const App = () => {
                     redirectTo="/login"
                     path="/brokers"
                     component={Brokers}
+                />
+                <ProtectedRoute
+                  isAllowed={user}
+                  redirectTo="/login"
+                  path="/learnings"
+                  component={Learnings}
                 />
                 <ProtectedRoute
                   isAllowed={user}

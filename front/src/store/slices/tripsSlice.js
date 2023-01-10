@@ -143,7 +143,20 @@ const tripsSlice = createSlice({
       state.createTripError = null;
       state.editTripError = null;
       state.trip = null;
-    }
+    },
+
+    fetchWeekTripsRequest(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchWeekTripsSuccess(state, {payload: trips}) {
+      state.loading = false;
+      state.trips = trips;
+    },
+    fetchWeekTripsFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   }
 });
 

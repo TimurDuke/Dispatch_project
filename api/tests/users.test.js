@@ -79,7 +79,8 @@ describe('Testing \'users\' route', () => {
           displayName: "NewUser",
           phoneNumber: `+3${uniquePhoneNumber}`,
           role: "user",
-          isWorking: "true"
+          isWorking: "true",
+          telegramId: 11
         });
 
       expect(res.statusCode).toBe(200);

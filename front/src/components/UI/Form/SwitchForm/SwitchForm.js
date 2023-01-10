@@ -1,15 +1,17 @@
 import React from 'react';
-import {FormControlLabel, Switch} from "@mui/material";
+import {Box, FormControlLabel, Switch} from "@mui/material";
 import PropTypes from "prop-types";
 
-const SwitchForm = ({checked, handleChange, id, name, label}) => {
+const SwitchForm = ({checked, handleChange, id, name, label, width}) => {
   return (
-    <FormControlLabel
-      control={
-      <Switch checked={checked} onChange={handleChange} id={id} name={name} />
-      }
-      label={label}
-    />
+    <Box width={width}>
+      <FormControlLabel
+        control={
+          <Switch checked={checked} onChange={handleChange} id={id} name={name} />
+        }
+        label={label}
+      />
+    </Box>
   );
 };
 
@@ -18,7 +20,8 @@ SwitchForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
-}
+  label: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired
+};
 
 export default SwitchForm;

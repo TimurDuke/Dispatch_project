@@ -35,6 +35,7 @@ const DispatcherTableBody = ({dispatchers, switchHandler}) => {
           </TableCell>
           <TableCell component="th" scope="row" sx={{fontSize: "16px"}}>
             <SwitchForm
+              width={200}
               handleChange={switchHandler}
               id={dispatcher._id}
               name="isWorking"

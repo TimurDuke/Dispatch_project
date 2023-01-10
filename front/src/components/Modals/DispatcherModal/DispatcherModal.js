@@ -8,6 +8,7 @@ import PasswordInput from "../../UI/Form/PasswordInput/PasswordInput";
 import FileInput from "../../UI/Form/FileInput/FileInput";
 import ButtonWithProgress from "../../UI/Button/ButtonWithProgress/ButtonWithProgress";
 import FormSelect from "../../UI/Form/FormSelect/FormSelect";
+import PhoneForm from "../../UI/Form/PhoneForm/PhoneForm";
 
 const style = {
   position: 'absolute',
@@ -76,15 +77,15 @@ const DispatcherModal = ({modal, title, dispatcher, modalHandler, submitFormHand
               : null
             }
 
-            <FormElement
+            <PhoneForm
               onChange={inputHandler}
-              type="phone"
               name="phoneNumber"
+              className={classes.field}
               label="Phone"
+              type="phone"
+              error={getFieldError("phoneNumber")}
               value={dispatcher.phoneNumber}
               required={dispatcher.role !== "admin"}
-              error={getFieldError('phoneNumber')}
-              className={classes.field}
             />
 
             <FormElement
