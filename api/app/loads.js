@@ -11,9 +11,9 @@ const Driver = require("../models/Driver");
 const User = require("../models/User");
 const Broker = require("../models/Broker");
 
-// const TelegramApi = require('node-telegram-bot-api');
-// const token = "936426396:AAEwbo64h7Nf3lEJ56bW1ZoA3plMlyPl9VQ";
-// const bot = new TelegramApi(token, {polling: true});
+const TelegramApi = require('node-telegram-bot-api');
+const token = "936426396:AAEwbo64h7Nf3lEJ56bW1ZoA3plMlyPl9VQ";
+const bot = new TelegramApi(token, {polling: true});
 
 const router = express.Router();
 
