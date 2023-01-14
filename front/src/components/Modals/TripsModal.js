@@ -471,24 +471,24 @@ const TripsModal = ({modalTitle, isAdd, tripID, isEdit}) => {
                   />
 
                   <Grid item>
-                    <FileInput name="RC" label="RC file" onChange={fileChangeHandler} required={false}/>
+                    <FileInput name="RC" label="RC file" value={isAdd ? newData.RC : editedData.RC} onChange={fileChangeHandler} required={false} accept={'.png, .jpg, .jpeg, .pdf'}/>
                   </Grid>
 
                   <Grid item>
-                    <FileInput name="BOL" label="BOL file" onChange={fileChangeHandler} required={false}/>
+                    <FileInput name="BOL" label="BOL file" value={isAdd ? newData.BOL : editedData.BOL} onChange={fileChangeHandler} required={false} accept={'.png, .jpg, .jpeg, .pdf'}/>
                   </Grid>
 
                   <Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%', margin: '12px 0 12px 10px'}}>
                     {editedData && editedData.RC
                       ? <ButtonWithProgress variant="contained" component="label">
-                          <a href={apiUrl + editedData.RC.slice(6)} target="_blank" download className={classes.link} rel="noreferrer">Download RC</a>
+                          <a href={apiUrl + '/' + editedData.RC} target="_blank" rel="noreferrer" className={classes.link}>Download RC</a>
                         </ButtonWithProgress>
                       : null
                     }
 
                     {editedData && editedData.BOL
                       ? <ButtonWithProgress variant="contained" component="label">
-                          <a href={apiUrl + editedData.BOL.slice(6)} target="_blank" download className={classes.link} rel="noreferrer">Download BOL</a>
+                          <a href={apiUrl + '/' + editedData.BOL} target="_blank" rel="noreferrer" className={classes.link}>Download BOL</a>
                         </ButtonWithProgress>
                       : null
                     }

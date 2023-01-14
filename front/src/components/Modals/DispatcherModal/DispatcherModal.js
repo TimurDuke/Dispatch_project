@@ -116,6 +116,7 @@ const DispatcherModal = ({modal, title, dispatcher, modalHandler, submitFormHand
                 onChange={fileHandler}
                 label="Avatar"
                 name="avatar"
+                accept={'.png, .jpg, .jpeg, .gif'}
               />
             </Grid>
 

@@ -26,6 +26,19 @@ const storage = multer.diskStorage({
     },
 });
 
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.pdf') {
+            return cb(new Error('Invalid file format'))
+        }
+        cb(null, true)
+    }
+});
+
+const cpUpload = upload.fields([{name: 'BOL', maxCount: 1}, {name: 'RC', maxCount: 1}])
+
 const statusDriver = {
     ready: 'ready',
     transit: 'in transit',
@@ -33,10 +46,6 @@ const statusDriver = {
     trUpc: 'in tr/upc',
     off: 'off',
 };
-
-const upload = multer({storage});
-
-const cpUpload = upload.fields([{name: 'BOL', maxCount: 1}, {name: 'RC', maxCount: 1}])
 
 router.get('/', auth, async (req, res) => {
     try {

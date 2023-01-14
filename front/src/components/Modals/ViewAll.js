@@ -211,14 +211,14 @@ const ViewAll = ({open, handleClose, trip, user}) => {
                   <Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%', margin: '12px 0 12px 10px'}}>
                     {trip && trip.RC
                       ? <ButtonWithProgress variant="contained" component="label">
-                        <a href={apiUrl + trip.RC.slice(6)} target="_blank" download className={classes.link} rel="noreferrer">Download RC</a>
+                        <a href={apiUrl + '/' + trip.RC} target="_blank" rel="noreferrer" className={classes.link}>Download RC</a>
                       </ButtonWithProgress>
                       : null
                     }
 
                     {trip && trip.BOL
                       ? <ButtonWithProgress variant="contained" component="label">
-                        <a href={apiUrl + trip.BOL.slice(6)} target="_blank" download className={classes.link} rel="noreferrer">Download BOL</a>
+                        <a href={apiUrl + '/' + trip.BOL} target="_blank" rel="noreferrer" className={classes.link}>Download BOL</a>
                       </ButtonWithProgress>
                       : null
                     }

@@ -10,8 +10,7 @@ const DriverTableBody = ({columns, filteredData}) => {
       {filteredData.map(driver => (
         <TableRow
           key={driver._id}
-          sx={{
-            '&:last-child td, &:last-child th': {border: 0}, background: "white"}}
+          sx={{'&:last-child td, &:last-child th': {border: 0}, background: "white"}}
         >
           {columns.map(column => {
             let value = driver[column.key];

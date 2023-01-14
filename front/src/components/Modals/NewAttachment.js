@@ -61,11 +61,11 @@ const NewAttachment = ({open, handleClose, id}) => {
               Attach files
             </Typography>
             <Grid item sx={{marginBottom: '10px'}}>
-              <FileInput name="RC" label="RC file" onChange={fileChangeHandler} required={false}/>
+              <FileInput name="RC" label="RC file" onChange={fileChangeHandler} required={false} accept={'.png, .jpg, .jpeg, .pdf'}/>
             </Grid>
 
             <Grid item>
-              <FileInput name="BOL" label="BOL file" onChange={fileChangeHandler} required={false}/>
+              <FileInput name="BOL" label="BOL file" onChange={fileChangeHandler} required={false} accept={'.png, .jpg, .jpeg, .pdf'}/>
             </Grid>
             <Grid container justifyContent={'space-between'} spacing={1} my={'10px'}>
               <Grid item xs={6}>

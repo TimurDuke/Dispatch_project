@@ -18,9 +18,19 @@ const storage = multer.diskStorage({
     cb(null, nanoid() + path.extname(file.originalname));
   },
 });
-const upload = multer({storage});
 
-router.get('/', auth, permit('user', 'admin'), async (req, res) => {
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.pdf') {
+      return cb(new Error('Invalid file format'))
+    }
+    cb(null, true)
+  }
+});
+
+router.get('/', auth, async (req, res) => {
   try {
     const carriers = await Carrier.find();
     res.send(carriers);

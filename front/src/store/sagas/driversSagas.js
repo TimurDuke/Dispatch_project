@@ -19,9 +19,14 @@ import {
 } from "../actions/driversActions";
 import {addNotification} from "../actions/notifierActions";
 
-export function* getDrivers() {
+export function* getDrivers(action) {
   try {
-    const response = yield axiosApi('/drivers');
+    let response;
+    if (action.payload.carrier.length === 0 && action.payload.status === 'Status') {
+      response = yield axiosApi('/drivers');
+    } else {
+      response = yield axiosApi('/drivers/?status=' + action.payload.status, {params: {carrier: action.payload.carrier}});
+    }
     yield put(fetchDriversSuccess(response.data));
   } catch (e) {
     yield put(fetchDriversFailure(e.response && e.response.data));
@@ -48,12 +53,15 @@ export function* fetchDriver({payload: id}) {
   }
 }
 
-export function* addDriver(action) {
+export function* addDriver({payload}) {
   try {
-    yield axiosApi.post('/drivers', action.payload);
+    yield axiosApi.post('/drivers', payload.data);
     yield put(addDriverSuccess());
-    yield put(fetchDriversRequest());
-    yield put(fetchDriversByCarrierRequest());
+    if(payload.user.role === 'carrier') {
+      yield put(fetchDriversByCarrierRequest());
+    } else {
+      yield put(fetchDriversRequest());
+    }
     yield put(addNotification({message: 'You have successfully added a driver!', variant: 'success'}));
   } catch (e) {
     yield put(addDriverFailure(e.response && e.response.data));

@@ -128,6 +128,7 @@ const Profile = ({user, error}) => {
               onChange={fileChangeHandler}
               label="Avatar"
               name="avatar"
+              accept={'.png, .jpg, .jpeg, .gif'}
             />
           </Box>
 

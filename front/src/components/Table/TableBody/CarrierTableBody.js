@@ -12,10 +12,7 @@ const CarrierTableBody = ({columns, carriers}) => {
       {carriers.map(carrier => (
         <TableRow
           key={carrier._id}
-          sx={{
-            '&:last-child td, &:last-child th': {border: 0}, background: "white",
-            cursor: "pointer", ":active": {background: '#f0f2fe'}
-          }}
+          sx={{'&:last-child td, &:last-child th': {border: 0}, background: "white"}}
         >
           {columns.map(column => {
             let value = carrier[column.key];

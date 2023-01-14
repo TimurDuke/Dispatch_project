@@ -15,6 +15,8 @@ describe('Testing \'drivers\' route', () => {
   let driversData = null;
   let driverByCarrier = null;
   let carrier = null;
+  
+  const driverStatus = ['in transit', 'upcoming', 'ready', 'in tr/upc', 'off'];
 
   const getUser = (email, password) => {
     it('user should successfully login', async () => {
@@ -96,6 +98,18 @@ describe('Testing \'drivers\' route', () => {
         .set({Authorization: user.token});
       expect(res.statusCode).toBe(200);
 
+    });
+  });
+  
+  describe('get filtered drivers', () => {
+    getUser('admin@gmail.com', 'admin');
+    getCarrier();
+    it('should get array of filtered drivers', async () => {
+      const res = await request(app)
+        .get('/drivers/?status=' + driverStatus[0] + '&carrier[]=' + carrier._id.toString())
+        .set({Authorization: user.token});
+      expect(res.statusCode).toBe(200);
+      
     });
   });
 

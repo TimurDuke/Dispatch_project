@@ -137,13 +137,13 @@ When('я введу данные в форму редактирования во
   });
 });
 
-Then('нажимаю на выбор компании для редактирования {string}', text => {
-  I.click(`//div[contains(text(), "${text}")]`);
-
+Then('нажимаю на выбор компании для редактирования', () => {
+  I.click(`//form/div[3]/div/div/div/div/div`);
 });
 
-Then('нажимаю на выбор статуса для редактирования {string}', text => {
-  I.click(`//div[contains(text(), "${text}")]`);
+Then('нажимаю на компанию {string}', companyName => {
+  I.click(`//ul//li[contains(text(), "${companyName}")]`);
+  I.wait(1);
 });
 
 Then('нажимаю на кнопку редактирования водителя {string}', buttonText => {

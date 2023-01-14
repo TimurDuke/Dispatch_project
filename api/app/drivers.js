@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const {nanoid} = require('nanoid');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const Driver = require('../models/Driver');
 const Carrier = require('../models/Carrier');
@@ -21,7 +22,16 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({storage});
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.pdf') {
+            return cb(new Error('Invalid file format'))
+        }
+        cb(null, true)
+    }
+});
 
 router.get('/carrier', auth, permit('carrier'), async (req, res) => {
   try {
@@ -34,10 +44,26 @@ router.get('/carrier', auth, permit('carrier'), async (req, res) => {
   }
 });
 
-
 router.get('/', auth, async (req, res) => {
   try {
-    if (req.query.carrier) {
+    if (req.query.status) {
+      const params = req.query;
+      const array = params.carrier ? params.carrier.map(item => (
+        mongoose.Types.ObjectId(item)
+      )) : null;
+      
+      let filter;
+      if (!Boolean(params.carrier)) {
+        filter = {'status': params.status};
+      } else if (params.status === 'Status') {
+        filter = {'companyId': { $in: array }};
+      } else {
+        filter = {'companyId': { $in: array }, 'status': params.status};
+      }
+  
+      const load = await Driver.find(filter).populate('companyId', 'title');
+      res.send(load);
+    } else if (req.query.carrier) {
       const driversByCarrier = await Driver
         .find({companyId: req.query.carrier}).populate('companyId', 'title');
 
@@ -125,8 +151,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-
-
 router.get('/:id', async (req, res) => {
   try {
     const driver = await Driver.findById(req.params.id).populate('companyId', 'title');
@@ -170,31 +194,6 @@ router.post('/', auth, upload.single('license'), async (req, res) => {
 
     const driver = new Driver(driverData);
 
-
-    await driver.save();
-    res.send(driver);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
-
-router.post('/carrier', auth, permit('carrier'), upload.single('license'), async (req, res) => {
-  try {
-    const {email, name, phoneNumber, description} = req.body;
-
-    const driverData = {
-      email,
-      name,
-      phoneNumber,
-      companyId: req.user.companyId,
-      description: JSON.parse(description),
-      license: req.file ? 'uploads/' + req.file.filename : null,
-    };
-    const driver = new Driver(driverData);
-
-    if (driverData.status === 'off') {
-      driverData.currentStatus = 'n/a';
-    }
 
     await driver.save();
     res.send(driver);
@@ -248,41 +247,6 @@ router.put('/:id', auth, upload.single('license'), async (req, res) => {
     }
 
     if (status !== 'in transit' && status !== 'in tr/upc') {
-      driver.currentStatus = 'n/a';
-    }
-
-    await driver.save();
-    res.send(driver);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
-
-router.put('/carrier/:id', auth, permit('carrier'), upload.single('license'), async (req, res) => {
-  try {
-    const {email, name, phoneNumber, status, description, pickUp,
-      delivery, ETA, readyTime, notes} = req.body;
-
-    const driver = await Driver.findOne({
-      _id: req.params.id,
-      companyId: req.user.companyId
-    });
-
-    driver.email = email;
-    driver.name = name;
-    driver.phoneNumber = phoneNumber;
-    driver.companyId = req.user.companyId;
-    driver.description = JSON.parse(description);
-    driver.pickUp = pickUp;
-    driver.delivery = delivery;
-    driver.ETA = ETA;
-    driver.readyTime = readyTime;
-    driver.notes = notes;
-    if (status) {
-        driver.status = status;
-    }
-
-    if (status === 'off') {
       driver.currentStatus = 'n/a';
     }
 

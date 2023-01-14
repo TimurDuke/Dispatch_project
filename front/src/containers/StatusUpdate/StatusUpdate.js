@@ -76,41 +76,30 @@ const StatusUpdate = () => {
   const dispatch = useDispatch();
   const drivers = useSelector(state => state.drivers.drivers);
   const carriers = useSelector(state => state.carriers.carriers);
-  const [currentDrivers, setCurrentDrivers] = useState([]);
   const [carrierSelector, setCarrierSelector] = useState(["Carriers"]);
   const [selectedCarrier, setSelectedCarrier] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState("Status");
 
   useEffect(() => {
-    dispatch(fetchDriversRequest());
+    dispatch(fetchDriversRequest({
+      carrier: [...selectedCarrier].map(item => item.id),
+      status: selectedStatus}
+    ));
     const interval = setInterval(() => {
       dispatch(fetchDriversRequest());
       }, statusInterval);
     return () => clearInterval(interval);
-    }, [dispatch]);
-
-  useEffect(() => {
-    if (selectedCarrier.length === 0 && selectedStatus === "Status") {
-      setCurrentDrivers(drivers);
-    } else if (selectedCarrier.length !== 0 || selectedStatus !== "Status") {
-      let driverFiltered = drivers;
-      if (selectedCarrier.length !== 0) {
-        driverFiltered = drivers.filter(driver => selectedCarrier.includes(driver.companyId.title));
-      }
-      if (selectedStatus !== "Status") {
-        driverFiltered = driverFiltered.filter(driver => selectedStatus.includes(driver.status));
-      }
-      setCurrentDrivers(driverFiltered);
-    }
-  }, [drivers, selectedCarrier, selectedStatus]);
+    }, [dispatch, selectedCarrier, selectedStatus]);
 
     useEffect(() => {
       dispatch(fetchCarriersRequest());
     }, [dispatch]);
 
-
     useEffect(() => {
-      const carriersTitles = carriers.map(carrier => carrier.title);
+      const carriersTitles = carriers.map(carrier => ({
+        label: carrier.title,
+        id: carrier._id
+      }));
       setCarrierSelector(() => [...carriersTitles]);
     }, [carriers]);
 
@@ -164,7 +153,7 @@ const StatusUpdate = () => {
 
     const { filteredData} = useTableSearch({
       searchVal,
-      data: currentDrivers
+      data: drivers
     });
 
 

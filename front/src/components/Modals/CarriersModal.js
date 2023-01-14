@@ -253,6 +253,7 @@ const CarriersModal = ({modalTitle, isAdd, carrierID}) => {
                         name={'document'}
                         value={isAdd ? newData.document.value : editedData.document}
                         onChange={fileChangeHandler}
+                        accept={'.png, .jpg, .jpeg, .pdf'}
                       />
                     </Grid>
 

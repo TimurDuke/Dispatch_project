@@ -12,10 +12,7 @@ const DispatcherTableBody = ({dispatchers, switchHandler}) => {
       {dispatchers.map(dispatcher => (
         <TableRow
           key={dispatcher._id}
-          sx={{
-            '&:last-child td, &:last-child th': {border: 0}, background: "white",
-            cursor: "pointer", ":active": {background: '#f0f2fe'}
-          }}
+          sx={{'&:last-child td, &:last-child th': {border: 0}, background: "white"}}
         >
           <TableCell component="th" scope="row" sx={{fontSize: "18px"}}>
             <Avatar

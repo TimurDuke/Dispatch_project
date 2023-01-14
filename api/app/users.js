@@ -19,7 +19,17 @@ const storage = multer.diskStorage({
     cb(null, nanoid() + path.extname(file.originalname));
   },
 });
-const upload = multer({storage});
+
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.gif') {
+            return cb(new Error('Invalid file format'))
+        }
+        cb(null, true)
+    }
+});
 
 router.get('/dispatchers', auth, permit('admin'), async (req, res) => {
   try {
@@ -119,7 +129,7 @@ router.post('/sessions', async (req,  res) => {
     return res.status(400).send('Data not valid!');
   }
   
-  const user = await User.findOne({email});
+  const user = await User.findOne({email}).populate('companyId', 'title');
   
   if (!user) {
     return res.status(401).send('Credentials are wrong!');
