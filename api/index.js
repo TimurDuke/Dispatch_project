@@ -10,7 +10,7 @@ const learnings = require('./app/learnings');
 const learningCategories = require('./app/learningCategories');
 const brokers = require('./app/brokers');
 const config = require('./config');
-const bot = require("./telegramBotSD");
+// const bot = require("./telegramBotSD");
 
 const app = express();
 
@@ -43,7 +43,7 @@ const run = async () => {
     });
 };
 
-bot();
+// bot();
 
 run().catch(e => console.log(e));
 
