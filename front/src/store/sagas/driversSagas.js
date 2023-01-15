@@ -22,7 +22,7 @@ import {addNotification} from "../actions/notifierActions";
 export function* getDrivers(action) {
   try {
     let response;
-    if (action.payload.carrier.length === 0 && action.payload.status === 'Status') {
+    if (!action.payload || action.payload.carrier.length === 0 && action.payload.status === 'Status') {
       response = yield axiosApi('/drivers');
     } else {
       response = yield axiosApi('/drivers/?status=' + action.payload.status, {params: {carrier: action.payload.carrier}});

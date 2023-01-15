@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Grid, Typography} from '@mui/material';
 import {fetchDriversByCarrierRequest, fetchDriversRequest} from '../../store/actions/driversActions';
+import {fetchCarriersRequest} from "../../store/actions/carriersActions";
 import AddDriver from "../../components/Modals/AddDriver";
 import InnerTable from "../../components/Table/InnerTable";
 import TableHeaderRow from "../../components/Table/TableHeader/TableHeaderRow";
@@ -74,6 +75,7 @@ const Drivers = () => {
   useEffect(() => {
     if (user.role !== 'carrier') {
       dispatch(fetchDriversRequest());
+      dispatch(fetchCarriersRequest());
     } else {
       dispatch(fetchDriversByCarrierRequest());
     }

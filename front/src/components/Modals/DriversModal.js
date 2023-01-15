@@ -8,7 +8,7 @@ import FormElement from "../UI/Form/FormElement/FormElement";
 import FormSelect from "../UI/Form/FormSelect/FormSelect";
 import FileInput from "../UI/Form/FileInput/FileInput";
 import ButtonWithProgress from "../UI/Button/ButtonWithProgress/ButtonWithProgress";
-import {fetchCarriersRequest} from "../../store/actions/carriersActions";
+
 import {
   addDriverRequest,
   clearDriverErrors,
@@ -84,12 +84,6 @@ const DriversModal = ({modalTitle, isAdd, driverEmail}) => {
     },
     license: '',
   });
-
-  useEffect(() => {
-    if (user.role !== 'carrier') {
-      dispatch(fetchCarriersRequest());
-    }
-  }, [dispatch, user.role]);
 
   useEffect(() => {
     if (newError === null) {

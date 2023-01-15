@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {fetchBrokersRequest} from "../../store/actions/brokersActions";
+import {fetchCarriersRequest} from "../../store/actions/carriersActions";
 import AddBroker from "../../components/Modals/AddBroker";
 import InnerContainer from "../../components/InnerContainer/InnerContainer";
 import InnerTable from "../../components/Table/InnerTable";
@@ -24,6 +25,7 @@ const Brokers = () => {
 
     useEffect(() => {
         dispatch(fetchBrokersRequest());
+        dispatch(fetchCarriersRequest());
     }, [dispatch]);
 
     return (

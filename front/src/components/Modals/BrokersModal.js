@@ -9,7 +9,6 @@ import EditButton from "../UI/Button/EditButton/EditButton";
 import AddButton from "../UI/Button/AddButton/AddButton";
 import FormSelect from "../UI/Form/FormSelect/FormSelect";
 import {clearBrokersErrors, createBrokerRequest, editBrokerRequest} from "../../store/actions/brokersActions";
-import {fetchCarriersRequest} from "../../store/actions/carriersActions";
 
 const style = {
     position: 'absolute',
@@ -123,10 +122,6 @@ const BrokersModal = ({modalTitle, isAdd, brokerID}) => {
         mc: '',
         description: '',
     });
-
-    useEffect(() => {
-        dispatch(fetchCarriersRequest());
-    }, [dispatch]);
 
     useEffect(() => {
         setAvailableCompanies(carriers);

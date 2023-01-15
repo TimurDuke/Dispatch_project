@@ -37,7 +37,7 @@ const NewDispatcher = ({dispatcherRole, title}) => {
   });
 
   useEffect(() => {
-    if (error === null) {
+    if (error === null && dispatcherRole === 'carrier') {
       dispatch(fetchCarriersRequest());
 
     }

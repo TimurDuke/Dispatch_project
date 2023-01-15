@@ -10,7 +10,6 @@ import {
   clearCarriersErrors,
   createCarrierRequest,
   editCarrierRequest,
-  fetchCarriersRequest
 } from "../../store/actions/carriersActions";
 import AddButton from "../UI/Button/AddButton/AddButton";
 import FileInput from "../UI/Form/FileInput/FileInput";
@@ -58,9 +57,6 @@ const CarriersModal = ({modalTitle, isAdd, carrierID}) => {
     document: ''
   });
 
-  useEffect(() => {
-    dispatch(fetchCarriersRequest());
-  }, [dispatch]);
 
   useEffect(() => {
     if (newError === null) {

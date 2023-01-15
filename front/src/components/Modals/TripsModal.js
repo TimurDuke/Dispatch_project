@@ -6,15 +6,12 @@ import Typography from "@mui/material/Typography";
 import FormElement from "../UI/Form/FormElement/FormElement";
 import FormSelect from "../UI/Form/FormSelect/FormSelect";
 import ButtonWithProgress from "../UI/Button/ButtonWithProgress/ButtonWithProgress";
-import {fetchDriversRequest} from "../../store/actions/driversActions";
 import {clearCreateTripErrorRequest, createTripRequest, editTripRequest} from "../../store/actions/tripsActions";
 import FileInput from "../UI/Form/FileInput/FileInput";
 import {DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {apiUrl} from "../../config";
-import {fetchUsersRequest} from "../../store/actions/usersActions";
 import AddButton from "../UI/Button/AddButton/AddButton";
-import {fetchBrokersRequest} from "../../store/actions/brokersActions";
 import TripsComments from '../TripsComments/TripsComments';
 
 const style = {
@@ -101,12 +98,6 @@ const TripsModal = ({modalTitle, isAdd, tripID, isEdit}) => {
   });
   
   const [commentArray, setCommentArray] = useState([]);
-
-  useEffect(() => {
-    dispatch(fetchUsersRequest());
-    dispatch(fetchDriversRequest());
-    dispatch(fetchBrokersRequest());
-  }, [dispatch]);
 
   useEffect(() => {
     if (newError === null) {

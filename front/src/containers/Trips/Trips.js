@@ -10,6 +10,7 @@ import {
   fetchTripRequest,
   fetchTripsRequest, fetchWeekTripsRequest
 } from "../../store/actions/tripsActions";
+import {fetchBrokersRequest} from "../../store/actions/brokersActions";
 import TripTableBody from "../../components/Table/TableBody/TripTableBody";
 import {fetchUsersRequest} from "../../store/actions/usersActions";
 import TabPanel from "../../components/TabPanel/TabPanel";
@@ -58,6 +59,7 @@ const Trips = ({history}) => {
 
     dispatch(fetchUsersRequest());
     dispatch(fetchDriversRequest());
+    dispatch(fetchBrokersRequest());
   }, [dispatch, history.location.search]);
 
   const [edit, setEdit] = useState(false);
