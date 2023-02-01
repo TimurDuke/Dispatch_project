@@ -39,8 +39,8 @@ export function* loginUserSaga({payload: userData}) {
 
 export function* logoutUserSaga() {
     try {
-        yield axiosApi.delete('/users/sessions');
         yield put(logoutSuccess());
+        yield axiosApi.delete('/users/sessions');
         yield put(historyPush('/login'));
     } catch (e) {
     }
