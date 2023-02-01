@@ -2,7 +2,7 @@ const path = require('path');
 
 const rootPath = __dirname;
 
-let dbURL = 'mongodb://localhost/dispatchers';
+let dbURL = 'mongodb://127.0.0.1/dispatchers';
 let port = 8000;
 
 if(process.env.NODE_ENV === 'test-local') {
